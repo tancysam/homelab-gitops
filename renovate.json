@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "minimumReleaseAge": "7 days",
+  "automerge": false,
+  "prConcurrentLimit": 3
+}
