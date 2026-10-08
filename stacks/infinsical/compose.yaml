@@ -9,7 +9,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-    image: infisical/infisical:latest # PIN THIS TO A SPECIFIC TAG: Nah laze
+    image: infisical/infisical:latest@sha256:3f014f284cb9af5b12087681cbbddc55244fe8e58a8d080987cd3e0f262bf837 # PIN THIS TO A SPECIFIC TAG: Nah laze
     pull_policy: always
     env_file: .env
     ports:
@@ -21,7 +21,7 @@ services:
       - proxy_net
 
   redis:
-    image: redis
+    image: redis@sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6
     container_name: infisical-dev-redis
     env_file: .env
     restart: always
@@ -34,7 +34,7 @@ services:
 
   db:
     container_name: infisical-db
-    image: postgres:14-alpine
+    image: postgres:14-alpine@sha256:4ea9e5ed06591da7ea23eb65465e8d3187fe79f4d5ec3ae976d29a33b013e77a
     restart: always
     env_file: .env
     volumes:

@@ -1,6 +1,6 @@
 services:
   yt-dlp-webui:
-    image: marcobaobao/yt-dlp-webui
+    image: marcobaobao/yt-dlp-webui@sha256:a8ae96007ee3f306a1079b4edb81a6b87dc685a6e8b822cd52aa0b026cf10ff3
     volumes:
       - ./data:/downloads # replace <your dir> with a directory on your host system
     restart: unless-stopped

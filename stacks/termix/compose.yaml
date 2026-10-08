@@ -1,6 +1,6 @@
 services:
   termix:
-    image: ghcr.io/lukegus/termix:latest
+    image: ghcr.io/lukegus/termix:latest@sha256:d64c841a560c54aa7c27b0e6bbd2fbf8b51073565040d2a6bfbc127f0a72cf1e
     container_name: termix
     restart: unless-stopped
     volumes:
@@ -13,7 +13,7 @@ services:
       - guacd
 
   guacd:
-    image: guacamole/guacd:latest
+    image: guacamole/guacd:latest@sha256:2d266a525a72ad55d8ea7cd4ca8342a1b44075759b03660d8684821b3636a922
     container_name: termix-guacd
     restart: unless-stopped
     networks:
