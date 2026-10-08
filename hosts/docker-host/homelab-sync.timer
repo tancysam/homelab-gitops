@@ -1,0 +1,10 @@
+[Unit]
+Description=Periodically sync homelab from Git
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=2min
+Unit=homelab-sync.service
+
+[Install]
+WantedBy=timers.target

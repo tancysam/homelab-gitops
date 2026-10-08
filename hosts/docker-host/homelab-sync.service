@@ -1,0 +1,20 @@
+[Unit]
+Description=Sync and deploy homelab from Git
+Wants=network-online.target
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/root/homelab
+ExecStart=/usr/bin/bash /root/homelab/scripts/sync.sh
+
+LoadCredential=github-token:/etc/homelab/github-token
+LoadCredential=infisical-client-id:/etc/homelab/infisical-client-id
+LoadCredential=infisical-client-secret:/etc/homelab/infisical-client-secret
+
+StateDirectory=homelab-gitops
+StateDirectoryMode=0700
+UMask=0077
+TimeoutStartSec=30min
