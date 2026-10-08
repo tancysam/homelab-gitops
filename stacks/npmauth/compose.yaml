@@ -30,7 +30,7 @@ services:
 
   tinyauth:
     container_name: tinyauth
-    image: ghcr.io/steveiliop56/tinyauth:v5
+    image: ghcr.io/steveiliop56/tinyauth:v5@sha256:0793c71c49906e079d90c7e693cded9df569217a92d717dc9b171f2116fcd1c6
     restart: unless-stopped
     env_file: .env
     networks:
@@ -39,7 +39,7 @@ services:
       homelab.gitops-test: "1"
 
   pocket-id:
-    image: ghcr.io/pocket-id/pocket-id:v2
+    image: ghcr.io/pocket-id/pocket-id:v2@sha256:323e7ef5bfacf7cf32f22f3d10ccdf48e0c97c94d67e7e40b0b996830deb5165
     restart: unless-stopped
     env_file: .env
     volumes:
