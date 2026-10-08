@@ -53,7 +53,7 @@ services:
       - internal_net
 
   vectordb:
-    image: pgvector/pgvector:0.8.0-pg15-trixie@sha256:8809cfffff0082cf260c9ac752f1dd1afc77f6f0a55c4e6411321e78efc3d9a5
+    image: pgvector/pgvector:0.8.7-pg15-trixie@sha256:8d4485d6fd3156d090ac5f37eb2e22eb59d93c91169414d5809414102ee924b9
     environment:
       POSTGRES_DB: mydatabase
       POSTGRES_USER: myuser
