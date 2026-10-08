@@ -18,7 +18,7 @@ networks:
 services:
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:v3.0.0@sha256:685ba5c93337058ff8a189d3ed89f0ba470ef966b1c94d2eace1a3d991f9816e
+    image: ghcr.io/immich-app/immich-server:v3.3.0@sha256:be56bc12c17a84617a979ad1eab1d9105bbec1955ffa7da09b3f9cf79d3bd09d
     extends:
       file: hwaccel.transcoding.yml
       service: quicksync # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
@@ -44,7 +44,7 @@ services:
     container_name: immich_machine_learning
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:v3.0.0-openvino@sha256:9abb73aff96dc3a9aa28cfa090d1556708890811d3b8b9b6bacfb14436037a21
+    image: ghcr.io/immich-app/immich-machine-learning:v3.3.0-openvino@sha256:a79670d05f8da90c86f8074afe1beaf51abee53c58692ad45cae2efd9afd4aca
     extends:
       # uncomment this section for hardware acceleration - see https://docs.immich.app/features/ml-hardware-acceleration
       file: hwaccel.ml.yml
