@@ -1,0 +1,87 @@
+services:
+  api:
+    image: ghcr.io/danny-avila/librechat-dev-api:latest
+    container_name: LibreChat-API
+    depends_on:
+      - mongodb
+      - rag_api
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/LibreChat
+      - MEILI_HOST=http://meilisearch:7700
+      - RAG_PORT=${RAG_PORT:-8000}
+      - RAG_API_URL=http://rag_api:${RAG_PORT:-8000}
+    volumes:
+      - type: bind
+        source: /root/librechat/librechat.yaml
+        target: /app/librechat.yaml
+      - /root/librechat/images:/app/client/public/images
+      - /root/librechat/uploads:/app/uploads
+      - /root/librechat/logs:/app/api/logs
+    networks:
+      - proxy_net
+      - internal_net
+
+  mongodb:
+    container_name: chat-mongodb
+    image: mongo:8.0.17
+    restart: always
+    volumes:
+      - /root/librechat/data-node:/data/db
+    command: mongod --noauth
+    networks:
+      - internal_net
+
+  meilisearch:
+    container_name: chat-meilisearch
+    image: getmeili/meilisearch:v1.12.3
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MEILI_HOST=http://meilisearch:7700
+      - MEILI_NO_ANALYTICS=true
+    volumes:
+      - /root/librechat/meili_data_v1.12:/meili_data
+    networks:
+      - internal_net
+
+  vectordb:
+    image: pgvector/pgvector:0.8.0-pg15-trixie
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    restart: always
+    volumes:
+      - pgdata2:/var/lib/postgresql/data
+    networks:
+      - internal_net
+
+  rag_api:
+    image: ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
+    environment:
+      - DB_HOST=vectordb
+      - RAG_PORT=${RAG_PORT:-8000}
+    restart: always
+    depends_on:
+      - vectordb
+    env_file:
+      - .env
+    networks:
+      - internal_net
+
+volumes:
+  pgdata2:
+
+networks:
+  proxy_net:
+    external: true
+  internal_net:
+    driver: bridge

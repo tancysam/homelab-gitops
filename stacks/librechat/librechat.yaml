@@ -1,0 +1,52 @@
+version: "1.1.5"
+cache: true
+
+endpoints:
+  custom:
+    - name: "OpenRouter"
+      apiKey: "${OPENROUTER_KEY}"
+      baseURL: "https://openrouter.ai/api/v1"
+      models:
+        default:
+          - "openai/gpt-4o-mini"
+          - "openai/gpt-oss-120b"
+          - "qwen/qwen3-32b"
+          - "moonshotai/kimi-k2.5"
+          - "google/gemini-3-flash-preview"
+          - "z-ai/glm-5"
+          - "z-ai/glm-5-turbo"
+          - "x-ai/grok-4.20-multi-agent-beta"
+        fetch: false # Set to false to strictly show ONLY the models listed above
+      titleConvo: true
+      titleModel: "amazon/nova-micro-v1" # Uses 4o-mini for generating chat titles (cheaper/faster)
+      summarize: true
+      summaryModel: "amazon/nova-micro-v1"
+      forcePrompt: false
+      dropParams: ["stop"]
+      modelDisplayLabel: "OpenRouter"
+
+memory:
+  disabled: false  # Set to true to completely disable memory
+  personalize: true  # Gives users the ability to toggle memory on/off, true by default
+  tokenLimit: 2000  # Maximum tokens for memory storage
+  messageWindowSize: 5  # Number of recent messages to conside
+
+interface:
+  modelSelect: true
+  parameters: true
+  sidePanel: true
+  presets: true
+  prompts:
+    use: true
+    share: true
+    public: false
+  bookmarks: true
+  multiConvo: true
+  agents:
+    use: true
+    share: true
+    public: false
+  runCode: true
+  webSearch: true
+  fileSearch: true
+  fileCitations: true

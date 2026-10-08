@@ -1,0 +1,38 @@
+
+services:
+  frigate:
+    container_name: frigate
+    privileged: true # this may not be necessary for all setups
+    restart: unless-stopped
+    image: ghcr.io/blakeblackshear/frigate:0.17.1
+    cap_add:
+      - CAP_PERFMON
+    shm_size: "128mb" # update for your cameras based on calculation above
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/dri:/dev/dri
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /root/frigate/config:/config
+      - /mnt/synologysmb/frigate/media:/media/frigate
+      - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+
+    ports:
+      - "8971:8971"
+      - "8554:8554" # RTSP feeds
+      - "8555:8555/tcp" # WebRTC over tcp
+      - "8555:8555/udp" # WebRTC over udp
+      - "554:554"
+      - "1935:1935"
+      - "1984:1984"
+    
+    networks:
+      - proxy_net
+
+networks:
+  proxy_net:
+    external: true
