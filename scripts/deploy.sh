@@ -51,5 +51,6 @@ infisical run \
       exit 1
     fi
 
+    "${compose[@]}" pull
     "${compose[@]}" up -d --pull never --wait --wait-timeout 180
   ' _ "$STACK" "$COMPOSE"
