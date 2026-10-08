@@ -10,4 +10,5 @@ STACKS=(
   stirlingpdf
   termix
   ytdlp
+  immich
 )
