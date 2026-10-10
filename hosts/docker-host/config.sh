@@ -11,4 +11,5 @@ STACKS=(
   termix
   ytdlp
   immich
+  monitoring
 )
