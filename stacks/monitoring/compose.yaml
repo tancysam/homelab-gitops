@@ -2,7 +2,7 @@ name: homelab-monitoring
 
 services:
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:latest@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -18,7 +18,7 @@ services:
       - loki
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:latest@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e
     restart: unless-stopped
     command:
       - --config.file=/etc/prometheus/prometheus.yml
@@ -32,7 +32,7 @@ services:
       - node-exporter
 
   loki:
-    image: grafana/loki:3.5.0
+    image: grafana/loki:3.5.0@sha256:4c431d2e6b9b38718694b31c5d56be7c80dc69c513215fde1aeb5b02cd4e2665
     user: "0"
     restart: unless-stopped
     command: -config.file=/etc/loki/loki-config.yaml
@@ -41,7 +41,7 @@ services:
       - loki_data:/loki
 
   alloy:
-    image: grafana/alloy:latest
+    image: grafana/alloy:latest@sha256:2aa2099af76c0098d4af7a4d6e48f86cb66dc1a000222ad927a1c67c6542d13f
     restart: unless-stopped
     command:
       - run
@@ -55,7 +55,7 @@ services:
       - loki
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:latest@sha256:3de2bd5203120b866d74a9b283b2ffb8ec382fbf9dc321814700c6ea6f44ec57
     restart: unless-stopped
     privileged: true
     devices:
@@ -67,7 +67,7 @@ services:
       - /var/lib/docker:/var/lib/docker:ro
 
   node-exporter:
-    image: quay.io/prometheus/node-exporter:latest
+    image: quay.io/prometheus/node-exporter:latest@sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0
     restart: unless-stopped
     command:
       - --path.rootfs=/host
