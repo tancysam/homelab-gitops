@@ -4,8 +4,6 @@ INFISICAL_ENV="prod"
  
 STACKS=(
   npmauth
-  frigate
-  librechat
   newt
   stirlingpdf
   termix

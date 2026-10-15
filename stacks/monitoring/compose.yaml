@@ -3,6 +3,7 @@ name: homelab-monitoring
 services:
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 256m
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -19,11 +20,12 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
+    mem_limit: 384m
     restart: unless-stopped
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
-      - --storage.tsdb.retention.time=30d
+      - --storage.tsdb.retention.time=7d
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
@@ -33,6 +35,7 @@ services:
 
   loki:
     image: grafana/loki:3.5.0
+    mem_limit: 384m
     user: "0"
     restart: unless-stopped
     command: -config.file=/etc/loki/loki-config.yaml
@@ -42,6 +45,7 @@ services:
 
   alloy:
     image: grafana/alloy:latest
+    mem_limit: 192m
     restart: unless-stopped
     command:
       - run
@@ -56,8 +60,18 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
+    # Not enforced yet: previously observed ~1.38 GiB usage. Investigate growth before enabling.
+    # mem_limit: 512m
     restart: unless-stopped
     privileged: true
+    command:
+      - --docker_only=true
+      - --housekeeping_interval=30s
+      - --max_housekeeping_interval=1m
+      - --global_housekeeping_interval=2m
+      - --disable_metrics=disk,diskIO
+      - --storage_duration=1m
+      - --store_container_labels=false
     devices:
       - /dev/kmsg:/dev/kmsg
     volumes:
@@ -68,6 +82,7 @@ services:
 
   node-exporter:
     image: quay.io/prometheus/node-exporter:latest
+    mem_limit: 64m
     restart: unless-stopped
     command:
       - --path.rootfs=/host

@@ -2,6 +2,7 @@ services:
   api:
     image: ghcr.io/danny-avila/librechat-dev-api:latest@sha256:2426a3c58564fd3a95c3c1e5118312c4af2f3c87ebde9b7615a4caa36c183fe6
     container_name: LibreChat-API
+    mem_limit: 512m
     depends_on:
       - mongodb
       - rag_api
@@ -31,6 +32,7 @@ services:
   mongodb:
     container_name: chat-mongodb
     image: mongo:9.0.2@sha256:bac22ea7710d774103dcad3ec8ac13cba1eb378f488e3ce8a6b3a1adf2ba9dcc
+    mem_limit: 512m
     restart: always
     volumes:
       - /root/librechat/data-node:/data/db
@@ -41,6 +43,7 @@ services:
   meilisearch:
     container_name: chat-meilisearch
     image: getmeili/meilisearch:v1.54.3@sha256:e68913ab7d6f5b159529e472cfd362ce3c741fafd3c127961b2142abbe41b3c9
+    mem_limit: 256m
     restart: always
     env_file:
       - .env
@@ -54,6 +57,7 @@ services:
 
   vectordb:
     image: pgvector/pgvector:0.8.7-pg15-trixie@sha256:8d4485d6fd3156d090ac5f37eb2e22eb59d93c91169414d5809414102ee924b9
+    mem_limit: 256m
     environment:
       POSTGRES_DB: mydatabase
       POSTGRES_USER: myuser
@@ -66,6 +70,7 @@ services:
 
   rag_api:
     image: ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest@sha256:a62ce2221b43a9bb57fa6cb733e7047c80132960272c33d5704028f3071a1251
+    mem_limit: 512m
     environment:
       - DB_HOST=vectordb
       - RAG_PORT=${RAG_PORT:-8000}
