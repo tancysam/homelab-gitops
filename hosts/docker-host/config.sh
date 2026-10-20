@@ -9,4 +9,5 @@ STACKS=(
   termix
   ytdlp
   immich
+  openwebui
 )
