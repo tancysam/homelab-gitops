@@ -10,4 +10,5 @@ STACKS=(
   ytdlp
   immich
   openwebui
+  monitoring
 )
