@@ -3,9 +3,13 @@ services:
     resume-matcher:
         container_name: resume-matcher
         ports:
-            - 3000:3000
+            - 3093:3000
         volumes:
             - resume-data:/app/backend/data
         image: srbhr/resume-matcher:latest
 volumes:
     resume-data:
+
+networks:
+  proxy_net:
+    external: true
