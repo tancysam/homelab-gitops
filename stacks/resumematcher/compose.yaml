@@ -2,9 +2,14 @@ name: resumematcher
 services:
     resume-matcher:
         container_name: resume-matcher
+        restart: unless-stopped
         volumes:
             - resume-data:/app/backend/data
         image: srbhr/resume-matcher:latest
+        environment:
+            - FRONTEND_BASE_URL=https://resumematcher.local.nimaguoshi.me
+        networks:
+            - proxy_net
 volumes:
     resume-data:
 
