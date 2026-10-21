@@ -10,5 +10,6 @@ STACKS=(
   ytdlp
   immich
   openwebui
+  resumematcher
   monitoring
 )

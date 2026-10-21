@@ -2,8 +2,6 @@ name: resumematcher
 services:
     resume-matcher:
         container_name: resume-matcher
-        ports:
-            - 3093:3000
         volumes:
             - resume-data:/app/backend/data
         image: srbhr/resume-matcher:latest
