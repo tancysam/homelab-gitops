@@ -11,5 +11,6 @@ STACKS=(
   immich
   openwebui
   resumematcher
+  job-ops
   monitoring
 )

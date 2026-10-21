@@ -1,0 +1,44 @@
+name: job-ops
+
+services:
+  job-ops:
+    image: ghcr.io/dakheera47/job-ops:v0.1.15@sha256:db4e3908dbc0326d7beb566ada4e562235b3559bcc10671fab260637dd7163d8
+    container_name: job-ops
+    restart: unless-stopped
+    volumes:
+      # Persist database and generated PDFs
+      - ./data:/app/data
+      # Persist Codex login/session data for app-server provider
+      - codex-home:/app/codex-home
+      # Persist Tectonic's LaTeX support-bundle cache. Without this, every
+      # container recreate re-downloads the support bundle on the first PDF
+      # render, which is slow and can fail with HTTP 429 rate-limiting.
+      - tectonic-cache:/root/.cache/Tectonic
+    environment:
+      # Server config
+      - NODE_ENV=production
+      - PORT=3001
+
+      # Python path (uses system python in container)
+      - PYTHON_PATH=/usr/bin/python3
+      # Codex runtime home (stores auth and config)
+      - CODEX_HOME=/app/codex-home
+    env_file:
+      - path: ./.env
+        required: false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - proxy_net
+
+volumes:
+  codex-home:
+  tectonic-cache:
+
+networks:
+  proxy_net:
+    external: true
