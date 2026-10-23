@@ -5,7 +5,7 @@ services:
         restart: unless-stopped
         volumes:
             - resume-data:/app/backend/data
-        image: srbhr/resume-matcher:latest
+        image: srbhr/resume-matcher:latest@sha256:66933d084a67cadee57d4ccc885277e42c2fd6d9a5774f089b63f8c7f033fb27
         environment:
             - FRONTEND_BASE_URL=https://resumematcher.local.nimaguoshi.me
         networks:
