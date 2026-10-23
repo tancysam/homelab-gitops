@@ -18,7 +18,7 @@ networks:
 services:
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:v3.3.1@sha256:db996e352359771c6a3db121a0ed8761516b22f727fc092a0f46dcfef82c1bc1
+    image: ghcr.io/immich-app/immich-server:v3.3.5@sha256:485d546a2e31d6a8b4db8423fcba5c109de8c218d93410af115fd1ccfc4352a6
     mem_limit: 768m
     extends:
       file: hwaccel.transcoding.yml
@@ -45,7 +45,7 @@ services:
     container_name: immich_machine_learning
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:v3.3.1-openvino@sha256:9f5ea923b763435592280e2f5e051a62f1a33d6d14e87620fc15453c27a12ae0
+    image: ghcr.io/immich-app/immich-machine-learning:v3.3.5-openvino@sha256:1dbac7f811b51b80c55ee0cf678e0089d3532c798f14a65747d5d7b473a4f9d6
     # Not enforced yet: OpenVINO inference can spike above 1 GiB. 
     # mem_limit: 1024m
     extends:
