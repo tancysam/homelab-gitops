@@ -2,7 +2,7 @@ name: homelab-monitoring
 
 services:
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:latest@sha256:488984b716c0862639f91a698adbe2862677a5a07bad42da5f03f3030883b205
     mem_limit: 256m
     restart: unless-stopped
     ports:
@@ -19,7 +19,7 @@ services:
       - loki
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:latest@sha256:fa3302279710be2f21a8301ec17a8b4f2301fd829bd113839b3b6b02b6f191a2
     mem_limit: 384m
     restart: unless-stopped
     command:
@@ -44,7 +44,7 @@ services:
       - loki_data:/loki
 
   alloy:
-    image: grafana/alloy:latest
+    image: grafana/alloy:latest@sha256:8ab871206bd2d8f89277f53abffee5f452a293980788d52f85fa183a87a505a4
     mem_limit: 192m
     restart: unless-stopped
     command:
@@ -59,7 +59,7 @@ services:
       - loki
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:latest@sha256:3de2bd5203120b866d74a9b283b2ffb8ec382fbf9dc321814700c6ea6f44ec57
     # Not enforced yet: previously observed ~1.38 GiB usage. Investigate growth before enabling.
     # mem_limit: 512m
     restart: unless-stopped
@@ -81,7 +81,7 @@ services:
       - /var/lib/docker:/var/lib/docker:ro
 
   node-exporter:
-    image: quay.io/prometheus/node-exporter:latest
+    image: quay.io/prometheus/node-exporter:latest@sha256:1b4e4438faca4dd7e001dd445d161a4a2091b0fededa84093b3a8dfeae1f1be0
     mem_limit: 64m
     restart: unless-stopped
     command:
