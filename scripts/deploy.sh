@@ -54,3 +54,9 @@ infisical run \
     "${compose[@]}" pull
     "${compose[@]}" up -d --pull never --wait --wait-timeout 180
   ' _ "$STACK" "$COMPOSE"
+
+# Reclaim dangling image layers left behind by successful updates.
+# Keep tagged unused images available for rollback; do not prune volumes.
+if ! docker image prune -f; then
+  printf 'Warning: Docker image cleanup failed.\n' >&2
+fi
