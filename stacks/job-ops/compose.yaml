@@ -2,7 +2,7 @@ name: job-ops
 
 services:
   job-ops:
-    image: ghcr.io/dakheera47/job-ops:v0.1.15@sha256:db4e3908dbc0326d7beb566ada4e562235b3559bcc10671fab260637dd7163d8
+    image: ghcr.io/dakheera47/job-ops:v0.13.1@sha256:42831cacd2021d65f808c9f0363e53d081fb55cb2626da7c9d233616618276c9
     container_name: job-ops
     restart: unless-stopped
     volumes:
